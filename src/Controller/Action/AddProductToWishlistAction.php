@@ -107,6 +107,9 @@ final class AddProductToWishlistAction
 
         $this->flashBag->add('success', $this->translator->trans('bitbag_sylius_wishlist_plugin.ui.added_wishlist_item'));
 
-        return new RedirectResponse($this->urlGenerator->generate('bitbag_sylius_wishlist_plugin_shop_wishlist_list_products'));
+        $referer = $request->headers->get('referer');
+        $refererPathInfo = Request::create($referer)->getPathInfo();
+
+        return new RedirectResponse($refererPathInfo);
     }
 }
